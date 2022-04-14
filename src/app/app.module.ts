@@ -11,6 +11,8 @@ import {  HttpClientModule } from '@angular/common/http';
 import { NotesComponent } from './notes/notes.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
+import { UserhomeComponent } from './userhome/userhome.component';
+import { HistoryComponent } from './history/history.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { HomeComponent } from './home/home.component';
     RegistrationComponent,
     NotesComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    UserhomeComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,

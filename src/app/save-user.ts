@@ -1,10 +1,13 @@
 export class SaveUser {
-    title: string;
-    content: string;
-    date: string;
+    
+    createdBy?: string;
+    title?: string;
+    content?: string;
+    createdDate?: string;
 
     constructor()
     {
 
     }
 }
+

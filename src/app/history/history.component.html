@@ -1,0 +1,46 @@
+
+
+
+<!------ Include the above in your HEAD tag ---------->
+<br><br>
+
+<h2 style="margin:20px;">Check Out Your Notes Here!!</h2>
+<br><br>
+<div class="container">
+    <div >
+        <br>
+        <br>
+
+    <table class="table table-striped custab">
+    <thead>
+        <tr>
+
+            <th>Email</th>
+            <th>Title</th>
+            <th>Notes</th>
+            <th>Modified On</th>
+            <th style="text-align:center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{user.createdBy}}</td>
+            <td>{{user.title}}</td>
+            <td>{{user.content}}</td>
+            <td>{{user.createdDate}}</td>
+           
+            <td class="text-center">
+                <button class="btn btn-danger btn-xs" style="margin-right: 16px" (click)="deleteUser(user.id)"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+                <button class="btn btn-danger btn-xs" (click)="viewNote(user.id)"><span class="glyphicon glyphicon-remove"></span> view</button>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+    <br>
+    <br>
+    
+    <button  class= "todo-submit" routerLink="/userhome" type="button">Go to home</button>
+</div>
+
+
+

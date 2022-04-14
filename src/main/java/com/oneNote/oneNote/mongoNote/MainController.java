@@ -1,18 +1,15 @@
 package com.oneNote.oneNote.mongoNote;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.NoSuchElementException;
-
-<<<<<<< HEAD
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-=======
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
->>>>>>> d62d0a951fc83b99fa516da86a62626539694ab8
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,36 +20,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD
+import antlr.collections.List;
 
 @CrossOrigin
-=======
->>>>>>> d62d0a951fc83b99fa516da86a62626539694ab8
 @RestController 
 @RequestMapping(path="/note") 
 public class MainController {
 	@Autowired
 	private NoteService service;
-	//private SequenceGeneratorService sequenceGenerator;
 	
-<<<<<<< HEAD
-	@PostMapping(path="/create") 
-=======
 	@PostMapping(path="/create")
->>>>>>> d62d0a951fc83b99fa516da86a62626539694ab8
 	public @ResponseBody String createNewNote(@RequestBody NoteData note) {
-		//sequenceGenerator.getNextSequence(NoteData.SEQUENCE_NAME);
-		//int seq = 0;
-		//System.out.println(seq + "\n" + note.getCreatedBy() + "\n" + note.getTitle() + "\n" + note.getContent());
-		//note.setId(seq);
+		Date date = Calendar.getInstance().getTime();  
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+        String strDate = dateFormat.format(date);  
+        note.setCreatedDate(strDate);
 		service.createNote(note);
 	    return "Note created\n";
 	}
 	
-	@GetMapping(path="/findnotes")
-	public @ResponseBody Iterable<NoteData> Retrieval() {
-		return service.listAll();
+	@GetMapping(path="/findnotes/{createdBy}")
+	public Iterable<NoteData> findbycreated(@PathVariable String createdBy){
+		return service.findbycreated(createdBy);
 	}
+	/*public @ResponseBody Iterable<NoteData> Retrieval() {
+		return service.listAll();
+	}*/
+	
 	
 	@GetMapping("/find/{name}")
 	public ResponseEntity<NoteData> get(@PathVariable String name) {
@@ -64,14 +58,24 @@ public class MainController {
 	    }      
 	}
 	
+	@GetMapping("/findid/{id}")
+	public NoteData getById(@PathVariable String id) {
+		try {
+			NoteData note = service.getById(id);
+			return note;
+		} catch(NoSuchElementException e) {
+			return  null;
+		}
+	}
 	
-	@DeleteMapping(path="/delete")
-	public @ResponseBody ResponseEntity<String> deleteUser(@RequestParam String id) {
+	
+	@DeleteMapping(path="/delete/{id}/{email}")
+	public Iterable<NoteData> deleteUser(@PathVariable String id,@PathVariable String email) {
 		try {
 	        service.delete(id);
-	        return new ResponseEntity<String>("Deleted\n", HttpStatus.OK);
+	       return findbycreated(email);
 	    } catch (NoSuchElementException e) {
-	        return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+	        return null;
 	    } 
 	}
 }

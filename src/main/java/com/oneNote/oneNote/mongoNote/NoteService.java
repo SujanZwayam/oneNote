@@ -2,7 +2,7 @@ package com.oneNote.oneNote.mongoNote;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,11 +22,15 @@ public class NoteService {
 	public NoteData getByName(String name) {
         return noteRepo.findNoteByName(name);
     }
+	public Iterable<NoteData> findbycreated(String createdby){
+		return noteRepo.findNoteByCreatedby(createdby);
+	}
+	
+	public NoteData getById(String id) {
+		return noteRepo.findById(id).orElse(null);
+	}
 	
 	public void delete(String id) {
-		//MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
-	    //Query searchQuery = new Query(Criteria.where("id").is(34562341112313));
-	    //mongoOperation.remove(searchQuery, Your_entity_class.class);
 		noteRepo.deleteById(id);
     }
 }

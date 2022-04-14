@@ -1,0 +1,40 @@
+
+
+<div class="outerdiv">
+
+<br>
+<br>
+<br>
+
+<div class="todos">
+        <form (submit)="addTodo()">
+            
+            <h2>Title:</h2>
+            <input type="text"
+            name="inputTodo"
+            placeholder="enter the title"
+            class="todo-input"
+            [(ngModel)] = "inputTitle"
+        
+            
+            />
+
+            <form >
+              <h2>Notes:</h2>
+              <textarea name="inputTodo" placeholder="enter your notes" class="todo-input"
+              [(ngModel)] = "inputTodo" rows="10" cols="50"></textarea>       
+       <input  type= "submit" (click)= "addTodo()"  value = "Add Notes" class= "todo-submit">
+    
+
+
+    <div  *ngFor="let todo of todos; let i = index;" class="todo {{ todo.completed ? 'done' : ' ' }}"> <!--/done is class name here -->
+   <div class="id">{{i}}</div>
+   <p class="title" (click)="toggleDone(i)"> {{todo.title}} </p> 
+
+   
+    <p class="content" (click)="toggleDone(i)">{{todo.content}}</p> 
+    <button class=" btn remove" (click)="deleteTodo(i)">  Remove</button>
+    </div>
+    
+  
+

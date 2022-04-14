@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, throwError } from 'rxjs';
+import { Observable, Subject, throwError, BehaviorSubject } from 'rxjs';
 import { User } from './user';
 import { SaveUser } from './save-user';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-
-
-
 
 
 @Injectable({
@@ -19,8 +16,16 @@ export class RegistrationService {
 
 
  emailSource:any;
+ saveUser = new SaveUser();
+ private data = new BehaviorSubject<SaveUser>({}); //
+ currentData = this.data.asObservable(); //
    
   constructor( private _http : HttpClient) { }
+
+  setData(data:any) { //
+    this.data.next(data); //
+  } //
+
 
   sendEmail(emailid: string)
   {
@@ -46,6 +51,23 @@ export class RegistrationService {
   public saveUserData(saveuser : SaveUser):Observable<any>
   {
     return this._http.post<any>("http://localhost:8080/note/create",saveuser);
+  }
+
+
+  public deletethefile(id:string,email:string){
+
+    return this._http.delete("http://localhost:8080/note/delete/"+id+"/"+email);
+    
+  }
+
+  public Listallthefile(email:string){
+
+    return this._http.get("http://localhost:8080/note/findnotes/"+email);
+    console.log(email);
+  }
+
+  public getNote(id:string) {
+    return this._http.get("http://localhost:8080/note/findid/"+id);
   }
   
 }

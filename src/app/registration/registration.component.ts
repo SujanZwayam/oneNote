@@ -27,16 +27,21 @@ export class RegistrationComponent implements OnInit {
   { 
     let response = this._service.RegisterUserFromRemote(this.user);
     response.subscribe(
-      (data)=> this.msg = data
-      
-  
-    )
-    if(this.msg=="true")
-      this._route.navigate(['/login']);
+      (data)=> {
+        this.msg = data;
+
+       
+      if(this.msg=="true")
+      {
+        this._route.navigate(['/login']);
+      }
     else{
       this._route.navigate(['/registration']);
 
-    }
+      }
+    
+  
+        });
 
 
   }

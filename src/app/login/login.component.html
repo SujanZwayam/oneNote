@@ -14,7 +14,7 @@
        
       <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" class="form-control" placeholder="Enter email" name="email" value = "elon@mail.com" [(ngModel)]="user.email" required #email="ngModel" 
+        <input type="email" class="form-control" placeholder="Enter email" name="email" value = "" [(ngModel)]="user.email" required #email="ngModel" 
         [class.isinvalid]= "email.invalid && email.touched" >
 
 
